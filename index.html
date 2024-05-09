@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!--
+
+//-->
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" id="jquery-js"></script>
+	<script src="js/garlic.js" id="jquery-js"></script>
+	<title>リーサルカンパニー子会社</title>
+	<style>
+		main > .container {
+			padding: 66px 0 0;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<span class="navbar-brand">リーサルカンパニー子会社</span>
+		</nav>
+	</header>
+	<main role="main" class="flex-shrink-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-8">
+					<div class="row">
+						<div class="col-3">
+							<p>タイマー</p>
+							<p id="time" style="display:none;"></p>
+							<p id="le_time">07:40</p>
+							<div id="buttons">
+								<input id="start" type="button" value="start">
+								<input id="reset" type="button" value="reset">
+							</div>
+							<p></p>
+							<p>
+								<!--・湧き開始時間<br />
+								中 <span id="in_time">00:00</span><br />
+								外 <span id="out_time">00:00</span><br />//-->
+							</p>
+						</div>
+						<div class="col-sm">
+							<form id="lethal" data-persist="garlic" method="post">
+								<p>
+									マップ：
+									<select id="map" name="map" class="garlic-auto-save">
+									</select>
+								</p>
+							</form>
+							<p id="map_img"></p>
+							<p id="map_comment"></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-4">
+					<table class="table table-hover table-sm" style="table-layout: fixed;">
+						<tbody id="enemy_data">
+							<tr>
+								<td id="test"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm">
+					<table class="table table-hover table-sm ">
+						<tbody>
+							<tr>
+								<td id="tab1">天気：Flooded(洪水) Eclipsed(日食) Stormiy(嵐) Rainy(大雨) Foggy(霧)</td>
+							</tr>
+							<tr>
+								<td id="tab2">検証：1秒辺り 1.399298159分経過 現実時間1秒=ゲーム内1.4分と推測 扉が開くのは07:40</td>
+							</tr>
+							<tr>
+								<td id="tab3">コマンド系 scan transmit</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-4">
+					<p>v50版時点の情報となります</p>
+					<p>
+						・主な情報元<br />
+						<a href="https://lethal-company.fandom.com/wiki/Lethal_Company_Wiki">Lethal Company Wiki | Fandom</a><br />
+						<a href="https://www.youtube.com/@canabo1221/videos">かなぼ - Youtube</a><br />
+					</p>
+				</div>
+			</div>
+			<script>
+				//データセット
+				var map_data = [
+					{"name" : "71-Gordion"      , "nn" : "com", "col" : "FFEFCA" , "in" : 0 , out : 0 , "img" : "Gordionmap.png" ,"comment" : "敵無し 売り場の近くは騒ぐとたまに勝手に開く"},
+					{"name" : "Experimentation" , "nn" : "exp", "col" : "DAFFD4" , "in" : 0 , out : 1080 , "img" : "Experimentationmap.png" ,"comment" : "Forest Keeper／Old Birdは稀"},
+					{"name" : "Assurance"       , "nn" : "ass", "col" : "DAFFD4" , "in" : 0 , out : 900 , "img" : "Assurancemap.png" ,"comment" : "Forest Keeperは稀"},
+					{"name" : "Vow"             , "nn" : "vow", "col" : "DAFFD4" , "in" : 0 , out : 840 , "img" : "Vowmap.png" ,"comment" : "Forest Keeper高確率<br />屋内はBracken率がやや高い"},
+					{"name" : "Offense"         , "nn" : "off", "col" : "BBF3FF" , "in" : 0 , out : 900 , "img" : "Offensemap.png" ,"comment" : "Forest Keeper／Old Birdは稀"},
+					{"name" : "March"           , "nn" : "mar", "col" : "BBF3FF" , "in" : 0 , out : 840 , "img" : "Marchmap.png" ,"comment" : "FIRE：左下坂道 右下壁 右上山<br />Forest Keeper率そこそこ<br />屋内はBracken率がやや高い"},
+					{"name" : "Adamance"        , "nn" : "ada", "col" : "BBF3FF" , "in" : 0 , out : 0 , "img" : "Adamance_moon.png" ,"comment" : "外はBaboon Hawk塗れ<br />Forest Keeperもそこそこ Old Birdは稀"},
+					{"name" : "Embrion"         , "nn" : "emb", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Embrion_Map.png" ,"comment" : "Forest Keeper稀 Old Bird超高確率"},
+					{"name" : "Rend"            , "nn" : "ren", "col" : "FFD1FC" , "in" : 0 , out : 780 , "img" : "Rend_Map_Log_Update_2024011.png" ,"comment" : "Forest Keeperそこそこ"},
+					{"name" : "Dine"            , "nn" : "din", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Dine_map.png" ,"comment" : "Forest Keeper率高め Old Bird稀<br />屋内は執事大量"},
+					{"name" : "Titan"           , "nn" : "tit", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Titan_Map_Log_Update_20240110.png" ,"comment" : "Forest Keeper率そこそこ Old Bird稀"},
+					{"name" : "Artifice"        , "nn" : "art", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Artifice_Moon.png" ,"comment" : "Forest Keeperそこそこ Old Bird率高め"},
+				];
+
+				for (let i = 0; i < map_data.length; i++) {
+					$('#map').append('<option value="' +i+ '" style="background:#' + map_data[i].col +';">'+map_data[i].name+'</option>');
+				}
+
+				var enemy_data_in = new Object();
+				enemy_data_in.com = [
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.exp = [
+					{"name" : "Bunker Spider" , "per" : "25.55%"},
+					{"name" : "Snare Flea" , "per" : "22.47%"},
+					{"name" : "Hygrodere" , "per" : "13.66%"},
+					{"name" : "Hoarding Bug" , "per" : "12.33%"},
+					{"name" : "Spore Lizard" , "per" : "12.33%"},
+					{"name" : "Thumper" , "per" : "7.05%"},
+					{"name" : "Bracken" , "per" : "5.73%"},
+					{"name" : "Ghost Girl" , "per" : "0.44%"},
+					{"name" : "Nutcracker" , "per" : "0.44%"},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.ass = [
+					{"name" : "Snare Flea" , "per" : "28.88%"},
+					{"name" : "Hoarding Bug" , "per" : "24.22%"},
+					{"name" : "Bunker Spider" , "per" : "21.43%"},
+					{"name" : "Hygrodere" , "per" : "8.7%"},
+					{"name" : "Thumper" , "per" : "7.45%"},
+					{"name" : "Bracken" , "per" : "4.35%"},
+					{"name" : "Spore Lizard" , "per" : "4.35%"},
+					{"name" : "Ghost Girl" , "per" : "0.31%"},
+					{"name" : "Nutcracker" , "per" : "0.31%"},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.vow = [
+					{"name" : "Bracken" , "per" : "26.14%"},
+					{"name" : "Hoarding Bug" , "per" : "20.59%"},
+					{"name" : "Snare Flea" , "per" : "19.93%"},
+					{"name" : "Bunker Spider" , "per" : "13.07%"},
+					{"name" : "Hygrodere" , "per" : "9.15%"},
+					{"name" : "Spore Lizard" , "per" : "6.21%"},
+					{"name" : "Thumper" , "per" : "2.94%"},
+					{"name" : "Coil-Head" , "per" : "1.96%"},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.off = [
+					{"name" : "Thumper" , "per" : "26.07%"},
+					{"name" : "Bunker Spider" , "per" : "	20.85%"},
+					{"name" : "Hygrodere" , "per" : "15.17%"},
+					{"name" : "Snare Flea" , "per" : "12.8%"},
+					{"name" : "Coil-Head" , "per" : "11.85%"},
+					{"name" : "Hoarding Bug" , "per" : "7.58%"},
+					{"name" : "Spore Lizard" , "per" : "3.32%"},
+					{"name" : "Bracken" , "per" : "1.42%"},
+					{"name" : "Nutcracker" , "per" : "0.95%"},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.mar = [
+					{"name" : "Thumper" , "per" : "24.18%"},
+					{"name" : "Bunker Spider" , "per" : "20.92%"},
+					{"name" : "Bracken" , "per" : "18.3%"},
+					{"name" : "Snare Flea" , "per" : "12.42%"},
+					{"name" : "Hoarding Bug" , "per" : "11.76%"},
+					{"name" : "Hygrodere" , "per" : "4.9%"},
+					{"name" : "Coil-Head" , "per" : "3.27%"},
+					{"name" : "Spore Lizard" , "per" : "2.94%"},
+					{"name" : "Nutcracker" , "per" : "0.98%"},
+					{"name" : "Jester" , "per" : "0.33%"},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.ada = [
+					{"name" : "Thumper" , "per" : "21.21%"},
+					{"name" : "Bunker Spider" , "per" : "17.08%"},
+					{"name" : "Hoarding Bug" , "per" : "15.7%"},
+					{"name" : "Snare Flea" , "per" : "11.57%"},
+					{"name" : "Bracken" , "per" : "9.09%"},
+					{"name" : "Spore Lizard" , "per" : "9.09%"},
+					{"name" : "Hygrodere" , "per" : "4.68%"},
+					{"name" : "Butler" , "per" : "2.75%"},
+					{"name" : "Coil-Head" , "per" : "2.75%"},
+					{"name" : "Nutcracker" , "per" : "2.2%"},
+					{"name" : "Jester" , "per" : "1.93%"},
+					{"name" : "Masked" , "per" : "1.38%"},
+					{"name" : "Ghost Girl" , "per" : "0.55%"},
+				];
+
+				enemy_data_in.emb = [
+					{"name" : "Hoarding Bug" , "per" : "30.6%"},
+					{"name" : "Hygrodere" , "per" : "14.95%"},
+					{"name" : "Spore Lizard" , "per" : "12.46%"},
+					{"name" : "Thumper" , "per" : "10.68%"},
+					{"name" : "Coil-Head" , "per" : "8.9%"},
+					{"name" : "Bunker Spider" , "per" : "8.19%"},
+					{"name" : "Nutcracker" , "per" : "7.83%"},
+					{"name" : "Snare Flea" , "per" : "5.34%"},
+					{"name" : "Bracken" , "per" : "1.07%"},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.ren = [
+					{"name" : "Nutcracker" , "per" : "24.75%"},
+					{"name" : "Jester" , "per" : "14.85%"},
+					{"name" : "Bracken" , "per" : "12.62%"},
+					{"name" : "Bunker Spider" , "per" : "10.64%"},
+					{"name" : "Coil-Head" , "per" : "10.64%"},
+					{"name" : "Snare Flea" , "per" : "7.67%"},
+					{"name" : "Masked" , "per" : "6.19%"},
+					{"name" : "Ghost Girl" , "per" : "4.95%"},
+					{"name" : "Butler" , "per" : "4.46%"},
+					{"name" : "Spore Lizard" , "per" : "1.73%"},
+					{"name" : "Hygrodere" , "per" : "	1.49%"},
+					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.din = [
+					{"name" : "Butler" , "per" : "43.88%"},
+					{"name" : "Bracken" , "per" : "8.16%"},
+					{"name" : "Hoarding Bug" , "per" : "8.16%"},
+					{"name" : "Bunker Spider" , "per" : "7.14%"},
+					{"name" : "Coil-Head" , "per" : "6.12%"},
+					{"name" : "Snare Flea" , "per" : "	5.10%"},
+					{"name" : "Jester" , "per" : "	5.10%"},
+					{"name" : "Nutcracker" , "per" : "4.07%"},
+					{"name" : "Hygrodere" , "per" : "	3.86%"},
+					{"name" : "Spore Lizard" , "per" : "3.06%"},
+					{"name" : "Thumper" , "per" : "2.44%"},
+					{"name" : "Ghost Girl" , "per" : "2.04%"},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.tit = [
+					{"name" : "Jester" , "per" : "12.84%"},
+					{"name" : "Nutcracker" , "per" : "12.84%"},
+					{"name" : "Bracken" , "per" : "11.21%"},
+					{"name" : "Bunker Spider" , "per" : "10.67%"},
+					{"name" : "Coil-Head" , "per" : "10.67%"},
+					{"name" : "Snare Flea" , "per" : "9.76%"},
+					{"name" : "Thumper" , "per" : "9.76%"},
+					{"name" : "Hoarding Bug" , "per" : "6.87%"},
+					{"name" : "Masked" , "per" : "5.79%"},
+					{"name" : "Hygrodere" , "per" : "3.62%"},
+					{"name" : "Ghost Girl" , "per" : "3.07%"},
+					{"name" : "Spore Lizard" , "per" : "2.89%"},
+					{"name" : "　" , "per" : ""},
+				];
+
+				enemy_data_in.art = [
+					{"name" : "Bunker Spider" , "per" : "8.77%"},
+					{"name" : "Bracken" , "per" : "8.77%"},
+					{"name" : "Nutcracker" , "per" : "8.77%"},
+					{"name" : "Butler" , "per" : "8.77%"},
+					{"name" : "Hoarding Bug" , "per" : "8.33%"},
+					{"name" : "Thumper" , "per" : "8.16%"},
+					{"name" : "Jester" , "per" : "8.07%"},
+					{"name" : "Spore Lizard" , "per" : "7.89%"},
+					{"name" : "Masked" , "per" : "7.81%"},
+					{"name" : "Coil-Head" , "per" : "7.75%"},
+					{"name" : "Snare Flea" , "per" : "7.46%"},
+					{"name" : "Hygrodere" , "per" : "6.40%"},
+					{"name" : "Ghost Girl" , "per" : "3.07%"},
+				];
+
+
+				//ページ後から書き込み処理
+				function lethalCal(){
+
+					map = $('#lethal [name=map]').val();
+					$("#map_comment").html(map_data[map].comment);
+					$("#map_img").html('<img src="img/map/'+ map_data[map].img + '" style="width: 100%;">');
+					var enemy_data_out = "";
+					for (let i = 0; i < enemy_data_in[map_data[map].nn].length; i++) {
+						enemy_data_out = enemy_data_out + '<tr><td><img src="img/ent/'+ enemy_data_in[map_data[map].nn][i].name + '.png" style="height: 20px;"></td><td>'+ enemy_data_in[map_data[map].nn][i].name +'</td><td>'+ enemy_data_in[map_data[map].nn][i].per +'</td></tr>';
+					}
+					$("#enemy_data").html(enemy_data_out);
+
+					//$("#in_time").html(le_time_hex(map_data[map].in));
+					//$("#out_time").html(le_time_hex(map_data[map].out));
+
+				}
+
+				//経過時間を時刻表記に変換
+				function le_time_hex(time) {
+					le_time_o = Math.floor(time / 60);
+					le_time_m = Math.floor(time % 60);
+					if (le_time_o < 10) { le_time_o = "0"+le_time_o;}
+					if (le_time_m < 10) { le_time_m = "0"+le_time_m;}
+					return le_time_o + ':' + le_time_m;
+				}
+
+				//ページ読み込み時処理
+				//lethalCal(); garlic.jsにてonload
+				$("#lethal").on('click keydown keyup keypress change',function () {
+					lethalCal();
+				})
+
+				//ここからタイマー 適当にサイトから拾ってきた奴
+				const time = document.getElementById('time');
+				const startButton = document.getElementById('start');
+				const resetButton = document.getElementById('reset');
+
+				// 開始時間
+				let startTime;
+				// 停止時間
+				let stopTime = 0;
+				// タイムアウトID
+				let timeoutID;
+
+				// 時間を表示する関数
+				function displayTime() {
+					const currentTime = new Date(Date.now() - startTime + stopTime);
+					const m = String(currentTime.getMinutes()).padStart(2, '0');
+					const s = String(currentTime.getSeconds()).padStart(2, '0');
+					time.textContent = `${m}:${s}`;
+					timeoutID = setTimeout(displayTime, 10);
+					le_time_make = (Number(m)*60+Number(s))*1.4+460;
+					le_time.textContent = (le_time_hex(le_time_make));
+				}
+
+				// スタートボタンがクリックされたら時間を進める
+				startButton.addEventListener('click', () => {
+					startButton.disabled = true;
+					resetButton.disabled = false;
+					startTime = Date.now();
+					displayTime();
+				});
+
+				// リセットボタンがクリックされたら時間を0に戻す
+				resetButton.addEventListener('click', function() {
+					clearTimeout(timeoutID);
+					stopTime += (Date.now() - startTime);
+					startButton.disabled = false;
+					resetButton.disabled = true;
+					time.textContent = '00:00';
+					stopTime = 0;
+				});
+			</script>
+		</div>
+	</main>
+	<footer class="footer py-3"> </footer>
+</body>
+</html>
