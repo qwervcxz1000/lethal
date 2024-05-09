@@ -329,7 +329,11 @@
 					le_time_m = Math.floor(time % 60);
 					if (le_time_o < 10) { le_time_o = "0"+le_time_o;}
 					if (le_time_m < 10) { le_time_m = "0"+le_time_m;}
-					return le_time_o + ':' + le_time_m;
+					if (le_time_o >= 24) {
+						return '24:00';
+					} else {
+						return le_time_o + ':' + le_time_m;
+					}
 				}
 
 				//ページ読み込み時処理
@@ -381,6 +385,7 @@
 			</script>
 		</div>
 	</main>
-	<footer class="footer py-3"> </footer>
+	<footer class="footer py-3">
+	</footer>
 </body>
 </html>
