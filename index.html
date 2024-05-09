@@ -7,6 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" id="jquery-js"></script>
+	<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
 	<script src="js/garlic.js" id="jquery-js"></script>
 	<title>リーサルカンパニー子会社</title>
 	<style>
@@ -312,7 +313,8 @@
 					$("#map_img").html('<img src="img/map/'+ map_data[map].img + '" style="width: 100%;">');
 					var enemy_data_out = "";
 					for (let i = 0; i < enemy_data_in[map_data[map].nn].length; i++) {
-						enemy_data_out = enemy_data_out + '<tr><td><img src="img/ent/'+ enemy_data_in[map_data[map].nn][i].name + '.png" style="height: 20px;"></td><td>'+ enemy_data_in[map_data[map].nn][i].name +'</td><td>'+ enemy_data_in[map_data[map].nn][i].per +'</td></tr>';
+						enemy_data_out = enemy_data_out + '<tr><td><img src="img/ent/'+ enemy_data_in[map_data[map].nn][i].name + '.png" style="height: 20px;"></td><td>'
+							+ enemy_data_in[map_data[map].nn][i].name +'</td><td>'+ enemy_data_in[map_data[map].nn][i].per +'</td></tr>';
 					}
 					$("#enemy_data").html(enemy_data_out);
 
