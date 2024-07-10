@@ -54,19 +54,6 @@
 							<p id="map_comment"></p>
 						</div>
 					</div>
-				</div>
-				<div class="col-4">
-					<table class="table table-hover table-sm" style="table-layout: fixed;">
-						<tbody id="enemy_data">
-							<tr>
-								<td id="test"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm">
 					<table class="table table-hover table-sm ">
 						<tbody>
 							<tr>
@@ -82,7 +69,14 @@
 					</table>
 				</div>
 				<div class="col-4">
-					<p>v50版時点の情報となります</p>
+					<table class="table table-hover table-sm" style="table-layout: fixed;">
+						<tbody id="enemy_data">
+							<tr>
+								<td id="test"></td>
+							</tr>
+						</tbody>
+					</table>
+					<p>v56版時点の情報となります</p>
 					<p>
 						・主な情報元<br />
 						<a href="https://lethal-company.fandom.com/wiki/Lethal_Company_Wiki">Lethal Company Wiki | Fandom</a><br />
@@ -90,21 +84,25 @@
 					</p>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-sm">
+				</div>
+			</div>
 			<script>
 				//データセット
 				var map_data = [
-					{"name" : "71-Gordion"      , "nn" : "com", "col" : "FFEFCA" , "in" : 0 , out : 0 , "img" : "Gordionmap.png" ,"comment" : "敵無し 売り場の近くは騒ぐとたまに勝手に開く"},
-					{"name" : "Experimentation" , "nn" : "exp", "col" : "DAFFD4" , "in" : 0 , out : 1080 , "img" : "Experimentationmap.png" ,"comment" : "Forest Keeper／Old Birdは稀"},
-					{"name" : "Assurance"       , "nn" : "ass", "col" : "DAFFD4" , "in" : 0 , out : 900 , "img" : "Assurancemap.png" ,"comment" : "Forest Keeperは稀"},
-					{"name" : "Vow"             , "nn" : "vow", "col" : "DAFFD4" , "in" : 0 , out : 840 , "img" : "Vowmap.png" ,"comment" : "Forest Keeper高確率<br />屋内はBracken率がやや高い"},
-					{"name" : "Offense"         , "nn" : "off", "col" : "BBF3FF" , "in" : 0 , out : 900 , "img" : "Offensemap.png" ,"comment" : "Forest Keeper／Old Birdは稀"},
+					{"name" : "71-Gordion"      , "nn" : "com", "col" : "FFEFCA" , "in" : 0 , out : 0 , "img" : "Gordionmap.png" ,"comment" : "敵無し 売り場の近くは騒ぐとたまに勝手に開く<br /><br />"},
+					{"name" : "Experimentation" , "nn" : "exp", "col" : "DAFFD4" , "in" : 0 , out : 1080 , "img" : "Experimentationmap.png" ,"comment" : "Forest Keeper／Old Birdは稀<br /><br />"},
+					{"name" : "Assurance"       , "nn" : "ass", "col" : "DAFFD4" , "in" : 0 , out : 900 , "img" : "Assurancemap.png" ,"comment" : "Forest Keeperは稀<br /><br />"},
+					{"name" : "Vow"             , "nn" : "vow", "col" : "DAFFD4" , "in" : 0 , out : 840 , "img" : "Vowmap.png" ,"comment" : "Forest Keeper高確率<br />屋内はBracken率がやや高い<br />"},
+					{"name" : "Offense"         , "nn" : "off", "col" : "BBF3FF" , "in" : 0 , out : 900 , "img" : "Offensemap.png" ,"comment" : "Forest Keeper／Old Birdは稀<br />"},
 					{"name" : "March"           , "nn" : "mar", "col" : "BBF3FF" , "in" : 0 , out : 840 , "img" : "Marchmap.png" ,"comment" : "FIRE：左下坂道 右下壁 右上山<br />Forest Keeper率そこそこ<br />屋内はBracken率がやや高い"},
-					{"name" : "Adamance"        , "nn" : "ada", "col" : "BBF3FF" , "in" : 0 , out : 0 , "img" : "Adamance_moon.png" ,"comment" : "外はBaboon Hawk塗れ<br />Forest Keeperもそこそこ Old Birdは稀"},
-					{"name" : "Embrion"         , "nn" : "emb", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Embrion_Map.png" ,"comment" : "Forest Keeper稀 Old Bird超高確率"},
-					{"name" : "Rend"            , "nn" : "ren", "col" : "FFD1FC" , "in" : 0 , out : 780 , "img" : "Rend_Map_Log_Update_2024011.png" ,"comment" : "Forest Keeperそこそこ"},
-					{"name" : "Dine"            , "nn" : "din", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Dine_map.png" ,"comment" : "Forest Keeper率高め Old Bird稀<br />屋内は執事大量"},
-					{"name" : "Titan"           , "nn" : "tit", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Titan_Map_Log_Update_20240110.png" ,"comment" : "Forest Keeper率そこそこ Old Bird稀"},
-					{"name" : "Artifice"        , "nn" : "art", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Artifice_Moon.png" ,"comment" : "Forest Keeperそこそこ Old Bird率高め"},
+					{"name" : "Adamance"        , "nn" : "ada", "col" : "BBF3FF" , "in" : 0 , out : 0 , "img" : "Adamance_moon.png" ,"comment" : "外はBaboon Hawk塗れ<br />Forest Keeperもそこそこ Old Birdは稀<br />"},
+					{"name" : "Embrion"         , "nn" : "emb", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Embrion_Map.png" ,"comment" : "Forest Keeper稀 Old Bird超高確率<br /><br />"},
+					{"name" : "Rend"            , "nn" : "ren", "col" : "FFD1FC" , "in" : 0 , out : 780 , "img" : "Rend_Map_Log_Update_2024011.png" ,"comment" : "Forest Keeperそこそこ<br /><br />"},
+					{"name" : "Dine"            , "nn" : "din", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Dine_map.png" ,"comment" : "Forest Keeper率高め Old Bird稀<br />屋内は執事大量<br />"},
+					{"name" : "Titan"           , "nn" : "tit", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Titan_Map_Log_Update_20240110.png" ,"comment" : "Forest Keeper率そこそこ Old Bird稀<br /><br />"},
+					{"name" : "Artifice"        , "nn" : "art", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Artifice_Moon.png" ,"comment" : "Forest Keeperそこそこ Old Bird率高め<br /><br />"},
 				];
 
 				for (let i = 0; i < map_data.length; i++) {
@@ -126,18 +124,20 @@
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.exp = [
-					{"name" : "Bunker Spider" , "per" : "25.55%"},
-					{"name" : "Snare Flea" , "per" : "22.47%"},
-					{"name" : "Hygrodere" , "per" : "13.66%"},
-					{"name" : "Hoarding Bug" , "per" : "12.33%"},
-					{"name" : "Spore Lizard" , "per" : "12.33%"},
-					{"name" : "Thumper" , "per" : "7.05%"},
-					{"name" : "Bracken" , "per" : "5.73%"},
-					{"name" : "Ghost Girl" , "per" : "0.44%"},
-					{"name" : "Nutcracker" , "per" : "0.44%"},
+					{"name" : "Bunker Spider" , "per" : "25.55"},
+					{"name" : "Snare Flea" , "per" : "22.47"},
+					{"name" : "Hygrodere" , "per" : "13.66"},
+					{"name" : "Hoarding Bug" , "per" : "12.33"},
+					{"name" : "Spore Lizard" , "per" : "12.33"},
+					{"name" : "Thumper" , "per" : "7.05"},
+					{"name" : "Bracken" , "per" : "5.73"},
+					{"name" : "Ghost Girl" , "per" : "0.44"},
+					{"name" : "Nutcracker" , "per" : "0.44"},
+					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -145,15 +145,16 @@
 				];
 
 				enemy_data_in.ass = [
-					{"name" : "Snare Flea" , "per" : "28.88%"},
-					{"name" : "Hoarding Bug" , "per" : "24.22%"},
-					{"name" : "Bunker Spider" , "per" : "21.43%"},
-					{"name" : "Hygrodere" , "per" : "8.7%"},
-					{"name" : "Thumper" , "per" : "7.45%"},
-					{"name" : "Bracken" , "per" : "4.35%"},
-					{"name" : "Spore Lizard" , "per" : "4.35%"},
-					{"name" : "Ghost Girl" , "per" : "0.31%"},
-					{"name" : "Nutcracker" , "per" : "0.31%"},
+					{"name" : "Snare Flea" , "per" : "28.62"},
+					{"name" : "Hoarding Bug" , "per" : "24.0"},
+					{"name" : "Bunker Spider" , "per" : "21.23"},
+					{"name" : "Hygrodere" , "per" : "8.62"},
+					{"name" : "Thumper" , "per" : "7.38"},
+					{"name" : "Bracken" , "per" : "4.31"},
+					{"name" : "Spore Lizard" , "per" : "4.31"},
+					{"name" : "Barber" , "per" : "0.92"},
+					{"name" : "Ghost Girl" , "per" : "0.31"},
+					{"name" : "Nutcracker" , "per" : "0.31"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -161,14 +162,15 @@
 				];
 
 				enemy_data_in.vow = [
-					{"name" : "Bracken" , "per" : "26.14%"},
-					{"name" : "Hoarding Bug" , "per" : "20.59%"},
-					{"name" : "Snare Flea" , "per" : "19.93%"},
-					{"name" : "Bunker Spider" , "per" : "13.07%"},
-					{"name" : "Hygrodere" , "per" : "9.15%"},
-					{"name" : "Spore Lizard" , "per" : "6.21%"},
-					{"name" : "Thumper" , "per" : "2.94%"},
-					{"name" : "Coil-Head" , "per" : "1.96%"},
+					{"name" : "Bracken" , "per" : "25.0"},
+					{"name" : "Hoarding Bug" , "per" : "19.69"},
+					{"name" : "Snare Flea" , "per" : "19.06"},
+					{"name" : "Bunker Spider" , "per" : "12.5"},
+					{"name" : "Hygrodere" , "per" : "8.75"},
+					{"name" : "Spore Lizard" , "per" : "5.94"},
+					{"name" : "Barber" , "per" : "4.38"},
+					{"name" : "Thumper" , "per" : "2.81"},
+					{"name" : "Coil-Head" , "per" : "1.96"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -177,63 +179,67 @@
 				];
 
 				enemy_data_in.off = [
-					{"name" : "Thumper" , "per" : "26.07%"},
-					{"name" : "Bunker Spider" , "per" : "	20.85%"},
-					{"name" : "Hygrodere" , "per" : "15.17%"},
-					{"name" : "Snare Flea" , "per" : "12.8%"},
-					{"name" : "Coil-Head" , "per" : "11.85%"},
-					{"name" : "Hoarding Bug" , "per" : "7.58%"},
-					{"name" : "Spore Lizard" , "per" : "3.32%"},
-					{"name" : "Bracken" , "per" : "1.42%"},
-					{"name" : "Nutcracker" , "per" : "0.95%"},
+					{"name" : "Thumper" , "per" : "26.07"},
+					{"name" : "Bunker Spider" , "per" : "	20.85"},
+					{"name" : "Hygrodere" , "per" : "15.17"},
+					{"name" : "Snare Flea" , "per" : "12.8"},
+					{"name" : "Coil-Head" , "per" : "11.85"},
+					{"name" : "Hoarding Bug" , "per" : "7.58"},
+					{"name" : "Spore Lizard" , "per" : "3.32"},
+					{"name" : "Bracken" , "per" : "1.42"},
+					{"name" : "Nutcracker" , "per" : "0.95"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
-				];
+					{"name" : "　" , "per" : ""},
+					];
 
 				enemy_data_in.mar = [
-					{"name" : "Thumper" , "per" : "24.18%"},
-					{"name" : "Bunker Spider" , "per" : "20.92%"},
-					{"name" : "Bracken" , "per" : "18.3%"},
-					{"name" : "Snare Flea" , "per" : "12.42%"},
-					{"name" : "Hoarding Bug" , "per" : "11.76%"},
-					{"name" : "Hygrodere" , "per" : "4.9%"},
-					{"name" : "Coil-Head" , "per" : "3.27%"},
-					{"name" : "Spore Lizard" , "per" : "2.94%"},
-					{"name" : "Nutcracker" , "per" : "0.98%"},
-					{"name" : "Jester" , "per" : "0.33%"},
+					{"name" : "Thumper" , "per" : "24.18"},
+					{"name" : "Bunker Spider" , "per" : "20.92"},
+					{"name" : "Bracken" , "per" : "18.3"},
+					{"name" : "Snare Flea" , "per" : "12.42"},
+					{"name" : "Hoarding Bug" , "per" : "11.76"},
+					{"name" : "Hygrodere" , "per" : "4.9"},
+					{"name" : "Coil-Head" , "per" : "3.27"},
+					{"name" : "Spore Lizard" , "per" : "2.94"},
+					{"name" : "Nutcracker" , "per" : "0.98"},
+					{"name" : "Jester" , "per" : "0.33"},
+					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.ada = [
-					{"name" : "Thumper" , "per" : "21.21%"},
-					{"name" : "Bunker Spider" , "per" : "17.08%"},
-					{"name" : "Hoarding Bug" , "per" : "15.7%"},
-					{"name" : "Snare Flea" , "per" : "11.57%"},
-					{"name" : "Bracken" , "per" : "9.09%"},
-					{"name" : "Spore Lizard" , "per" : "9.09%"},
-					{"name" : "Hygrodere" , "per" : "4.68%"},
-					{"name" : "Butler" , "per" : "2.75%"},
-					{"name" : "Coil-Head" , "per" : "2.75%"},
-					{"name" : "Nutcracker" , "per" : "2.2%"},
-					{"name" : "Jester" , "per" : "1.93%"},
-					{"name" : "Masked" , "per" : "1.38%"},
-					{"name" : "Ghost Girl" , "per" : "0.55%"},
+					{"name" : "Thumper" , "per" : "18.46"},
+					{"name" : "Bunker Spider" , "per" : "17.08"},
+					{"name" : "Hoarding Bug" , "per" : "15.7"},
+					{"name" : "Snare Flea" , "per" : "11.57"},
+					{"name" : "Bracken" , "per" : "11.02"},
+					{"name" : "Spore Lizard" , "per" : "9.09"},
+					{"name" : "Hygrodere" , "per" : "4.68"},
+					{"name" : "Butler" , "per" : "2.75"},
+					{"name" : "Coil-Head" , "per" : "2.75"},
+					{"name" : "Nutcracker" , "per" : "2.2"},
+					{"name" : "Jester" , "per" : "1.93"},
+					{"name" : "Masked" , "per" : "1.38"},
+					{"name" : "Barber" , "per" : "0.83"},
+					{"name" : "Ghost Girl" , "per" : "0.55"},
 				];
 
 				enemy_data_in.emb = [
-					{"name" : "Hoarding Bug" , "per" : "30.6%"},
-					{"name" : "Hygrodere" , "per" : "14.95%"},
-					{"name" : "Spore Lizard" , "per" : "12.46%"},
-					{"name" : "Thumper" , "per" : "10.68%"},
-					{"name" : "Coil-Head" , "per" : "8.9%"},
-					{"name" : "Bunker Spider" , "per" : "8.19%"},
-					{"name" : "Nutcracker" , "per" : "7.83%"},
-					{"name" : "Snare Flea" , "per" : "5.34%"},
-					{"name" : "Bracken" , "per" : "1.07%"},
+					{"name" : "Hoarding Bug" , "per" : "27.13"},
+					{"name" : "Hygrodere" , "per" : "13.25"},
+					{"name" : "Barber" , "per" : "11.36"},
+					{"name" : "Spore Lizard" , "per" : "11.04"},
+					{"name" : "Thumper" , "per" : "9.46"},
+					{"name" : "Coil-Head" , "per" : "7.89"},
+					{"name" : "Bunker Spider" , "per" : "7.26"},
+					{"name" : "Nutcracker" , "per" : "6.94"},
+					{"name" : "Snare Flea" , "per" : "4.73"},
+					{"name" : "Bracken" , "per" : "0.95"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -241,67 +247,71 @@
 				];
 
 				enemy_data_in.ren = [
-					{"name" : "Nutcracker" , "per" : "24.75%"},
-					{"name" : "Jester" , "per" : "14.85%"},
-					{"name" : "Bracken" , "per" : "12.62%"},
-					{"name" : "Bunker Spider" , "per" : "10.64%"},
-					{"name" : "Coil-Head" , "per" : "10.64%"},
-					{"name" : "Snare Flea" , "per" : "7.67%"},
-					{"name" : "Masked" , "per" : "6.19%"},
-					{"name" : "Ghost Girl" , "per" : "4.95%"},
-					{"name" : "Butler" , "per" : "4.46%"},
-					{"name" : "Spore Lizard" , "per" : "1.73%"},
-					{"name" : "Hygrodere" , "per" : "	1.49%"},
+					{"name" : "Nutcracker" , "per" : "24.1"},
+					{"name" : "Jester" , "per" : "14.46"},
+					{"name" : "Bracken" , "per" : "12.29"},
+					{"name" : "Bunker Spider" , "per" : "10.36"},
+					{"name" : "Coil-Head" , "per" : "10.36"},
+					{"name" : "Snare Flea" , "per" : "7.47"},
+					{"name" : "Masked" , "per" : "6.02"},
+					{"name" : "Ghost Girl" , "per" : "4.82"},
+					{"name" : "Butler" , "per" : "4.34"},
+					{"name" : "Barber" , "per" : "2.65"},
+					{"name" : "Spore Lizard" , "per" : "1.69"},
+					{"name" : "Hygrodere" , "per" : "	1.45"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.din = [
-					{"name" : "Butler" , "per" : "43.88%"},
-					{"name" : "Bracken" , "per" : "8.16%"},
-					{"name" : "Hoarding Bug" , "per" : "8.16%"},
-					{"name" : "Bunker Spider" , "per" : "7.14%"},
-					{"name" : "Coil-Head" , "per" : "6.12%"},
-					{"name" : "Snare Flea" , "per" : "	5.10%"},
-					{"name" : "Jester" , "per" : "	5.10%"},
-					{"name" : "Nutcracker" , "per" : "4.07%"},
-					{"name" : "Hygrodere" , "per" : "	3.86%"},
-					{"name" : "Spore Lizard" , "per" : "3.06%"},
-					{"name" : "Thumper" , "per" : "2.44%"},
-					{"name" : "Ghost Girl" , "per" : "2.04%"},
+					{"name" : "Butler" , "per" : "30.69"},
+					{"name" : "Barber" , "per" : "14.85"},
+					{"name" : "Bracken" , "per" : "7.92"},
+					{"name" : "Hoarding Bug" , "per" : "7.92"},
+					{"name" : "Bunker Spider" , "per" : "6.93"},
+					{"name" : "Coil-Head" , "per" : "5.94"},
+					{"name" : "Snare Flea" , "per" : "4.95"},
+					{"name" : "Jester" , "per" : "	4.95"},
+					{"name" : "Nutcracker" , "per" : "4.95"},
+					{"name" : "Hygrodere" , "per" : "	2.97"},
+					{"name" : "Thumper" , "per" : "2.97"},
+					{"name" : "Spore Lizard" , "per" : "2.97"},
+					{"name" : "Ghost Girl" , "per" : "1.98"},
 					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.tit = [
-					{"name" : "Jester" , "per" : "12.84%"},
-					{"name" : "Nutcracker" , "per" : "12.84%"},
-					{"name" : "Bracken" , "per" : "11.21%"},
-					{"name" : "Bunker Spider" , "per" : "10.67%"},
-					{"name" : "Coil-Head" , "per" : "10.67%"},
-					{"name" : "Snare Flea" , "per" : "9.76%"},
-					{"name" : "Thumper" , "per" : "9.76%"},
-					{"name" : "Hoarding Bug" , "per" : "6.87%"},
-					{"name" : "Masked" , "per" : "5.79%"},
-					{"name" : "Hygrodere" , "per" : "3.62%"},
-					{"name" : "Ghost Girl" , "per" : "3.07%"},
-					{"name" : "Spore Lizard" , "per" : "2.89%"},
+					{"name" : "Jester" , "per" : "12.84"},
+					{"name" : "Nutcracker" , "per" : "12.84"},
+					{"name" : "Bracken" , "per" : "11.21"},
+					{"name" : "Bunker Spider" , "per" : "10.67"},
+					{"name" : "Coil-Head" , "per" : "10.67"},
+					{"name" : "Snare Flea" , "per" : "9.76"},
+					{"name" : "Thumper" , "per" : "9.76"},
+					{"name" : "Hoarding Bug" , "per" : "6.87"},
+					{"name" : "Masked" , "per" : "5.79"},
+					{"name" : "Hygrodere" , "per" : "3.62"},
+					{"name" : "Ghost Girl" , "per" : "3.07"},
+					{"name" : "Spore Lizard" , "per" : "2.89"},
+					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.art = [
-					{"name" : "Bunker Spider" , "per" : "8.77%"},
-					{"name" : "Bracken" , "per" : "8.77%"},
-					{"name" : "Nutcracker" , "per" : "8.77%"},
-					{"name" : "Butler" , "per" : "8.77%"},
-					{"name" : "Hoarding Bug" , "per" : "8.33%"},
-					{"name" : "Thumper" , "per" : "8.16%"},
-					{"name" : "Jester" , "per" : "8.07%"},
-					{"name" : "Spore Lizard" , "per" : "7.89%"},
-					{"name" : "Masked" , "per" : "7.81%"},
-					{"name" : "Coil-Head" , "per" : "7.75%"},
-					{"name" : "Snare Flea" , "per" : "7.46%"},
-					{"name" : "Hygrodere" , "per" : "6.40%"},
-					{"name" : "Ghost Girl" , "per" : "3.07%"},
+					{"name" : "Bunker Spider" , "per" : "8.62"},
+					{"name" : "Bracken" , "per" : "8.62"},
+					{"name" : "Nutcracker" , "per" : "8.62"},
+					{"name" : "Butler" , "per" : "8.62"},
+					{"name" : "Hoarding Bug" , "per" : "8.19"},
+					{"name" : "Thumper" , "per" : "8.02"},
+					{"name" : "Jester" , "per" : "7.93"},
+					{"name" : "Spore Lizard" , "per" : "7.76"},
+					{"name" : "Masked" , "per" : "7.67"},
+					{"name" : "Coil-Head" , "per" : "7.59"},
+					{"name" : "Snare Flea" , "per" : "7.33"},
+					{"name" : "Hygrodere" , "per" : "6.29"},
+					{"name" : "Ghost Girl" , "per" : "3.02"},
+					{"name" : "Barber" , "per" : "1.72"},
 				];
 
 
@@ -312,9 +322,15 @@
 					$("#map_comment").html(map_data[map].comment);
 					$("#map_img").html('<img src="img/map/'+ map_data[map].img + '" style="width: 100%;">');
 					var enemy_data_out = "";
+					var testnum = 0; // デバッグ用変数
 					for (let i = 0; i < enemy_data_in[map_data[map].nn].length; i++) {
-						enemy_data_out = enemy_data_out + '<tr><td><img src="img/ent/'+ enemy_data_in[map_data[map].nn][i].name + '.png" style="height: 20px;"></td><td>'
-							+ enemy_data_in[map_data[map].nn][i].name +'</td><td>'+ enemy_data_in[map_data[map].nn][i].per +'</td></tr>';
+						testnum = testnum + Number(enemy_data_in[map_data[map].nn][i].per);
+						if (enemy_data_in[map_data[map].nn][i].name != "　"){
+							enemy_data_out = enemy_data_out + '<tr><td><img src="img/ent/'+ enemy_data_in[map_data[map].nn][i].name + '.png" style="height: 20px;"></td><td>'
+								+ enemy_data_in[map_data[map].nn][i].name +'</td><td>'+ enemy_data_in[map_data[map].nn][i].per +'%</td></tr>';
+						} else {
+							enemy_data_out = enemy_data_out + '<tr><td></td><td>　</td><td></td></tr>';
+						}
 					}
 					$("#enemy_data").html(enemy_data_out);
 
