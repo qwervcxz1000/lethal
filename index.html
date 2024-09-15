@@ -35,12 +35,6 @@
 								<input id="start" type="button" value="start">
 								<input id="reset" type="button" value="reset">
 							</div>
-							<p></p>
-							<p>
-								<!--・湧き開始時間<br />
-								中 <span id="in_time">00:00</span><br />
-								外 <span id="out_time">00:00</span><br />//-->
-							</p>
 						</div>
 						<div class="col-sm" style="height: 450px;">
 							<form id="lethal" data-persist="garlic" method="post">
@@ -60,10 +54,15 @@
 								<td id="tab1">天気：Flooded(洪水) Eclipsed(日食) Stormiy(嵐) Rainy(大雨) Foggy(霧)</td>
 							</tr>
 							<tr>
-								<td id="tab2">検証：1秒辺り 1.399298159分経過 現実時間1秒=ゲーム内1.4分と推測 扉が開くのは07:40</td>
+								<td id="tab2">1秒あたりゲーム内1.4分 扉が開くのは07:40</td>
 							</tr>
 							<tr>
-								<td id="tab3">コマンド系<input type="text" size="1" value="scan" /> / <input type="text" size="4" value="transmit" /> / <input type="text" size="8" value="view monitor" /></td>
+								<td id="tab3">コマンド系
+									<input type="text" id="scan" size="1" value="scan" /> <button class="btn btn-outline-primary btn-sm" onclick="copy('scan');">c</button> / 
+									<input type="text" id="transmit"  size="4" value="transmit" /> <button class="btn btn-outline-primary btn-sm" onclick="copy('transmit');">c</button> / 
+									<input type="text" id="view"  size="8" value="view monitor" /> <button class="btn btn-outline-primary btn-sm" onclick="copy('view');">c</button> / 
+									<input type="text" id="flash"  size="8" value="flash " /> <button class="btn btn-outline-primary btn-sm" onclick="copy('flash');">c</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -76,7 +75,8 @@
 							</tr>
 						</tbody>
 					</table>
-					<p>v56版時点の情報となります</p>
+					<p>v64版時点の情報となります</p>
+					<!--<p id="testnum"></p>//-->
 					<p>
 						・主な情報元<br />
 						<a href="https://lethal-company.fandom.com/wiki/Lethal_Company_Wiki">Lethal Company Wiki | Fandom</a><br />
@@ -91,18 +91,18 @@
 			<script>
 				//データセット
 				var map_data = [
-					{"name" : "71-Gordion"      , "nn" : "com", "col" : "FFEFCA" , "in" : 0 , out : 0 , "img" : "Gordionmap.png" ,"comment" : "敵無し 売り場の近くは騒ぐとたまに勝手に開く"},
-					{"name" : "Experimentation" , "nn" : "exp", "col" : "DAFFD4" , "in" : 0 , out : 1080 , "img" : "Experimentationmap.png" ,"comment" : "Forest Keeper／Old Birdは稀"},
-					{"name" : "Assurance"       , "nn" : "ass", "col" : "DAFFD4" , "in" : 0 , out : 900 , "img" : "Assurancemap.png" ,"comment" : "Forest Keeperは稀"},
-					{"name" : "Vow"             , "nn" : "vow", "col" : "DAFFD4" , "in" : 0 , out : 840 , "img" : "Vowmap.png" ,"comment" : "Forest Keeper高確率<br />屋内はBracken率がやや高い"},
-					{"name" : "Offense"         , "nn" : "off", "col" : "BBF3FF" , "in" : 0 , out : 900 , "img" : "Offensemap.png" ,"comment" : "Forest Keeper／Old Birdは稀"},
-					{"name" : "March"           , "nn" : "mar", "col" : "BBF3FF" , "in" : 0 , out : 840 , "img" : "Marchmap.png" ,"comment" : "FIRE：左下坂道 右下壁 右上山<br />Forest Keeper率そこそこ<br />屋内はBracken率がやや高い"},
-					{"name" : "Adamance"        , "nn" : "ada", "col" : "BBF3FF" , "in" : 0 , out : 0 , "img" : "Adamance_moon.png" ,"comment" : "外はBaboon Hawk塗れ<br />Forest Keeperもそこそこ Old Birdは稀"},
-					{"name" : "Embrion"         , "nn" : "emb", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Embrion_Map.png" ,"comment" : "Forest Keeper稀 Old Bird超高確率"},
-					{"name" : "Rend"            , "nn" : "ren", "col" : "FFD1FC" , "in" : 0 , out : 780 , "img" : "Rend_Map_Log_Update_2024011.png" ,"comment" : "Forest Keeperそこそこ"},
-					{"name" : "Dine"            , "nn" : "din", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Dine_map.png" ,"comment" : "Forest Keeper率高め Old Bird稀<br />屋内は執事大量"},
-					{"name" : "Titan"           , "nn" : "tit", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Titan_Map_Log_Update_20240110.png" ,"comment" : "Forest Keeper率そこそこ Old Bird稀"},
-					{"name" : "Artifice"        , "nn" : "art", "col" : "FFD1FC" , "in" : 0 , out : 0 , "img" : "Artifice_Moon.png" ,"comment" : "Forest Keeperそこそこ Old Bird率高め"},
+					{"name" : "71-Gordion"      , "nn" : "com", "col" : "FFEFCA" , "img" : "Gordionmap.png" ,"comment" : "敵無し 売り場の近くは騒ぐとたまに勝手に開く"},
+					{"name" : "Experimentation" , "nn" : "exp", "col" : "DAFFD4" , "img" : "Experimentationmap.png" ,"comment" : "Forest Keeper／Old Birdは稀"},
+					{"name" : "Assurance"       , "nn" : "ass", "col" : "DAFFD4" , "img" : "Assurancemap.png" ,"comment" : "Forest Keeperは稀"},
+					{"name" : "Vow"             , "nn" : "vow", "col" : "DAFFD4" , "img" : "Vowmap.png" ,"comment" : "Forest Keeper高確率<br />屋内はBracken率がやや高い"},
+					{"name" : "Offense"         , "nn" : "off", "col" : "BBF3FF" , "img" : "Offensemap.png" ,"comment" : "Forest Keeper／Old Birdは稀"},
+					{"name" : "March"           , "nn" : "mar", "col" : "BBF3FF" , "img" : "Marchmap.png" ,"comment" : "FIRE：左下坂道 右下壁 右上山<br />Forest Keeper率そこそこ<br />屋内はBracken率がやや高い"},
+					{"name" : "Adamance"        , "nn" : "ada", "col" : "BBF3FF" , "img" : "Adamance_moon.png" ,"comment" : "外はBaboon Hawk塗れ<br />Forest Keeperもそこそこ Old Birdは稀"},
+					{"name" : "Embrion"         , "nn" : "emb", "col" : "FFD1FC" , "img" : "Embrion_Map.png" ,"comment" : "Forest Keeper稀 Old Bird超高確率"},
+					{"name" : "Rend"            , "nn" : "ren", "col" : "FFD1FC" , "img" : "Rend_Map_Log_Update_2024011.png" ,"comment" : "Forest Keeperそこそこ"},
+					{"name" : "Dine"            , "nn" : "din", "col" : "FFD1FC" , "img" : "Dine_map.png" ,"comment" : "Forest Keeper率高め Old Bird稀<br />屋内は執事大量"},
+					{"name" : "Titan"           , "nn" : "tit", "col" : "FFD1FC" , "img" : "Titan_Map_Log_Update_20240110.png" ,"comment" : "Forest Keeper率そこそこ Old Bird稀"},
+					{"name" : "Artifice"        , "nn" : "art", "col" : "FFD1FC" , "img" : "Artifice_Moon.png" ,"comment" : "Forest Keeperそこそこ Old Bird率高め"},
 				];
 
 				for (let i = 0; i < map_data.length; i++) {
@@ -111,6 +111,7 @@
 
 				var enemy_data_in = new Object();
 				enemy_data_in.com = [
+					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -142,19 +143,21 @@
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.ass = [
-					{"name" : "Snare Flea" , "per" : "28.62"},
-					{"name" : "Hoarding Bug" , "per" : "24.0"},
-					{"name" : "Bunker Spider" , "per" : "21.23"},
-					{"name" : "Hygrodere" , "per" : "8.62"},
-					{"name" : "Thumper" , "per" : "7.38"},
-					{"name" : "Bracken" , "per" : "4.31"},
-					{"name" : "Spore Lizard" , "per" : "4.31"},
-					{"name" : "Barber" , "per" : "0.92"},
-					{"name" : "Ghost Girl" , "per" : "0.31"},
-					{"name" : "Nutcracker" , "per" : "0.31"},
+					{"name" : "Snare Flea" , "per" : "25.91"},
+					{"name" : "Hoarding Bug" , "per" : "21.73"},
+					{"name" : "Bunker Spider" , "per" : "19.22"},
+					{"name" : "Maneater" , "per" : "9.47"},
+					{"name" : "Hygrodere" , "per" : "7.8"},
+					{"name" : "Thumper" , "per" : "6.69"},
+					{"name" : "Bracken" , "per" : "3.9"},
+					{"name" : "Spore Lizard" , "per" : "3.9"},
+					{"name" : "Barber" , "per" : "0.84"},
+					{"name" : "Ghost Girl" , "per" : "0.28"},
+					{"name" : "Nutcracker" , "per" : "0.28"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -162,15 +165,16 @@
 				];
 
 				enemy_data_in.vow = [
-					{"name" : "Bracken" , "per" : "25.0"},
-					{"name" : "Hoarding Bug" , "per" : "19.69"},
-					{"name" : "Snare Flea" , "per" : "19.06"},
-					{"name" : "Bunker Spider" , "per" : "12.5"},
-					{"name" : "Hygrodere" , "per" : "8.75"},
-					{"name" : "Spore Lizard" , "per" : "5.94"},
+					{"name" : "Bracken" , "per" : "22.22"},
+					{"name" : "Hoarding Bug" , "per" : "17.5"},
+					{"name" : "Snare Flea" , "per" : "13.33"},
+					{"name" : "Maneater" , "per" : "14.72"},
+					{"name" : "Bunker Spider" , "per" : "11.11"},
+					{"name" : "Hygrodere" , "per" : "7.78"},
+					{"name" : "Spore Lizard" , "per" : "5.28"},
 					{"name" : "Barber" , "per" : "4.38"},
-					{"name" : "Thumper" , "per" : "2.81"},
-					{"name" : "Coil-Head" , "per" : "1.96"},
+					{"name" : "Thumper" , "per" : "2.5"},
+					{"name" : "Coil-Head" , "per" : "1.67"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -179,15 +183,16 @@
 				];
 
 				enemy_data_in.off = [
-					{"name" : "Thumper" , "per" : "26.07"},
-					{"name" : "Bunker Spider" , "per" : "	20.85"},
-					{"name" : "Hygrodere" , "per" : "15.17"},
-					{"name" : "Snare Flea" , "per" : "12.8"},
-					{"name" : "Coil-Head" , "per" : "11.85"},
-					{"name" : "Hoarding Bug" , "per" : "7.58"},
-					{"name" : "Spore Lizard" , "per" : "3.32"},
-					{"name" : "Bracken" , "per" : "1.42"},
-					{"name" : "Nutcracker" , "per" : "0.95"},
+					{"name" : "Thumper" , "per" : "24.12"},
+					{"name" : "Bunker Spider" , "per" : "19.3"},
+					{"name" : "Hygrodere" , "per" : "14.04"},
+					{"name" : "Snare Flea" , "per" : "11.84"},
+					{"name" : "Coil-Head" , "per" : "10.96"},
+					{"name" : "Maneater" , "per" : "7.46"},
+					{"name" : "Hoarding Bug" , "per" : "7.02"},
+					{"name" : "Spore Lizard" , "per" : "3.07"},
+					{"name" : "Bracken" , "per" : "1.32"},
+					{"name" : "Nutcracker" , "per" : "0.88"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -196,16 +201,17 @@
 					];
 
 				enemy_data_in.mar = [
-					{"name" : "Thumper" , "per" : "24.18"},
-					{"name" : "Bunker Spider" , "per" : "20.92"},
-					{"name" : "Bracken" , "per" : "18.3"},
-					{"name" : "Snare Flea" , "per" : "12.42"},
-					{"name" : "Hoarding Bug" , "per" : "11.76"},
-					{"name" : "Hygrodere" , "per" : "4.9"},
-					{"name" : "Coil-Head" , "per" : "3.27"},
-					{"name" : "Spore Lizard" , "per" : "2.94"},
-					{"name" : "Nutcracker" , "per" : "0.98"},
-					{"name" : "Jester" , "per" : "0.33"},
+					{"name" : "Thumper" , "per" : "23.49"},
+					{"name" : "Bunker Spider" , "per" : "20.32"},
+					{"name" : "Bracken" , "per" : "17.78"},
+					{"name" : "Snare Flea" , "per" : "12.06"},
+					{"name" : "Hoarding Bug" , "per" : "11.43"},
+					{"name" : "Hygrodere" , "per" : "4.76"},
+					{"name" : "Coil-Head" , "per" : "3.17"},
+					{"name" : "Spore Lizard" , "per" : "2.86"},
+					{"name" : "Maneater" , "per" : "2.86"},
+					{"name" : "Nutcracker" , "per" : "0.95"},
+					{"name" : "Jester" , "per" : "0.32"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
@@ -213,20 +219,21 @@
 				];
 
 				enemy_data_in.ada = [
-					{"name" : "Thumper" , "per" : "18.46"},
-					{"name" : "Bunker Spider" , "per" : "17.08"},
-					{"name" : "Hoarding Bug" , "per" : "15.7"},
-					{"name" : "Snare Flea" , "per" : "11.57"},
-					{"name" : "Bracken" , "per" : "11.02"},
-					{"name" : "Spore Lizard" , "per" : "9.09"},
-					{"name" : "Hygrodere" , "per" : "4.68"},
-					{"name" : "Butler" , "per" : "2.75"},
-					{"name" : "Coil-Head" , "per" : "2.75"},
-					{"name" : "Nutcracker" , "per" : "2.2"},
-					{"name" : "Jester" , "per" : "1.93"},
-					{"name" : "Masked" , "per" : "1.38"},
-					{"name" : "Barber" , "per" : "0.83"},
-					{"name" : "Ghost Girl" , "per" : "0.55"},
+					{"name" : "Thumper" , "per" : "16.5"},
+					{"name" : "Bunker Spider" , "per" : "15.27"},
+					{"name" : "Hoarding Bug" , "per" : "14.04"},
+					{"name" : "Maneater" , "per" : "10.59"},
+					{"name" : "Snare Flea" , "per" : "10.34"},
+					{"name" : "Bracken" , "per" : "9.85"},
+					{"name" : "Spore Lizard" , "per" : "8.13"},
+					{"name" : "Hygrodere" , "per" : "4.19"},
+					{"name" : "Coil-Head" , "per" : "2.46"},
+					{"name" : "Butler" , "per" : "2.46"},
+					{"name" : "Nutcracker" , "per" : "1.97"},
+					{"name" : "Jester" , "per" : "1.72"},
+					{"name" : "Masked" , "per" : "1.23"},
+					{"name" : "Barber" , "per" : "0.74"},
+					{"name" : "Ghost Girl" , "per" : "0.49"},
 				];
 
 				enemy_data_in.emb = [
@@ -244,6 +251,7 @@
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.ren = [
@@ -254,29 +262,31 @@
 					{"name" : "Coil-Head" , "per" : "10.36"},
 					{"name" : "Snare Flea" , "per" : "7.47"},
 					{"name" : "Masked" , "per" : "6.02"},
-					{"name" : "Ghost Girl" , "per" : "4.82"},
+					{"name" : "Ghost Girl" , "per" : "4.95"},
 					{"name" : "Butler" , "per" : "4.34"},
 					{"name" : "Barber" , "per" : "2.65"},
 					{"name" : "Spore Lizard" , "per" : "1.69"},
 					{"name" : "Hygrodere" , "per" : "	1.45"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.din = [
-					{"name" : "Butler" , "per" : "30.69"},
-					{"name" : "Barber" , "per" : "14.85"},
-					{"name" : "Bracken" , "per" : "7.92"},
-					{"name" : "Hoarding Bug" , "per" : "7.92"},
-					{"name" : "Bunker Spider" , "per" : "6.93"},
-					{"name" : "Coil-Head" , "per" : "5.94"},
-					{"name" : "Snare Flea" , "per" : "4.95"},
-					{"name" : "Jester" , "per" : "	4.95"},
-					{"name" : "Nutcracker" , "per" : "4.95"},
-					{"name" : "Hygrodere" , "per" : "	2.97"},
-					{"name" : "Thumper" , "per" : "2.97"},
-					{"name" : "Spore Lizard" , "per" : "2.97"},
-					{"name" : "Ghost Girl" , "per" : "1.98"},
+					{"name" : "Butler" , "per" : "27.91"},
+					{"name" : "Barber" , "per" : "13.95"},
+					{"name" : "Hoarding Bug" , "per" : "8.14"},
+					{"name" : "Jester" , "per" : "6.98"},
+					{"name" : "Nutcracker" , "per" : "6.98"},
+					{"name" : "Bracken" , "per" : "5.81"},
+					{"name" : "Coil-Head" , "per" : "5.81"},
+					{"name" : "Bunker Spider" , "per" : "4.65"},
+					{"name" : "Snare Flea" , "per" : "4.65"},
+					{"name" : "Ghost Girl" , "per" : "3.49"},
+					{"name" : "Spore Lizard" , "per" : "3.49"},
+					{"name" : "Thumper" , "per" : "3.49"},
+					{"name" : "Hygrodere" , "per" : "	2.33"},
+					{"name" : "Maneater" , "per" : "2.33"},
 					{"name" : "　" , "per" : ""},
 				];
 
@@ -295,23 +305,26 @@
 					{"name" : "Spore Lizard" , "per" : "2.89"},
 					{"name" : "　" , "per" : ""},
 					{"name" : "　" , "per" : ""},
+					{"name" : "　" , "per" : ""},
 				];
 
 				enemy_data_in.art = [
-					{"name" : "Bunker Spider" , "per" : "8.62"},
-					{"name" : "Bracken" , "per" : "8.62"},
-					{"name" : "Nutcracker" , "per" : "8.62"},
-					{"name" : "Butler" , "per" : "8.62"},
-					{"name" : "Hoarding Bug" , "per" : "8.19"},
-					{"name" : "Thumper" , "per" : "8.02"},
-					{"name" : "Jester" , "per" : "7.93"},
-					{"name" : "Spore Lizard" , "per" : "7.76"},
-					{"name" : "Masked" , "per" : "7.67"},
-					{"name" : "Coil-Head" , "per" : "7.59"},
-					{"name" : "Snare Flea" , "per" : "7.33"},
-					{"name" : "Hygrodere" , "per" : "6.29"},
-					{"name" : "Ghost Girl" , "per" : "3.02"},
-					{"name" : "Barber" , "per" : "1.72"},
+					{"name" : "Bunker Spider" , "per" : "8.29"},
+					{"name" : "Bracken" , "per" : "8.29"},
+					{"name" : "Nutcracker" , "per" : "8.29"},
+					{"name" : "Hoarding Bug" , "per" : "7.87"},
+					{"name" : "Thumper" , "per" : "7.62"},
+					{"name" : "Jester" , "per" : "7.62"},
+					{"name" : "Butler" , "per" : "7.54"},
+					{"name" : "Spore Lizard" , "per" : "7.46"},
+					{"name" : "Masked" , "per" : "7.37"},
+					{"name" : "Coil-Head" , "per" : "7.13"},
+					{"name" : "Snare Flea" , "per" : "6.38"},
+					{"name" : "Hygrodere" , "per" : "6.05"},
+					{"name" : "Barber" , "per" : "3.73"},
+					{"name" : "Maneater" , "per" : "3.48"},
+					{"name" : "Ghost Girl" , "per" : "2.9"},
+					
 				];
 
 
@@ -334,8 +347,7 @@
 					}
 					$("#enemy_data").html(enemy_data_out);
 
-					//$("#in_time").html(le_time_hex(map_data[map].in));
-					//$("#out_time").html(le_time_hex(map_data[map].out));
+					$("#testnum").html(testnum);
 
 				}
 
@@ -350,6 +362,13 @@
 					} else {
 						return le_time_o + ':' + le_time_m;
 					}
+				}
+
+				function copy(copyCode) {
+					var targetCode = document.getElementById(copyCode); // コピー対象のテキストを選択する
+					targetCode.select();                              // コピーしたい要素を選択状態にする
+					document.execCommand("Copy");                       // 選択しているテキストをクリップボードにコピーする
+					//alert("コピーしました！");                            // 任意でアラートを出す
 				}
 
 				//ページ読み込み時処理
